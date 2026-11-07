@@ -25,11 +25,15 @@ services:
   exam-service:
     image: dattaprasad3/exam-service:latest
     build:
-      context: ./exam-service
+      context: .
       dockerfile: Dockerfile
     container_name: exam-service
     ports:
-      - "5432:5432"
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb:5432/skill-exam-2400031486
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD before starting the database}
     depends_on:
       postgresdb:
         condition: service_healthy
